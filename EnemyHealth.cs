@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -19,28 +22,23 @@ public class EnemyHealth : MonoBehaviour
 
     void Awake ()
     {
-        // Setting up the references.
         anim = GetComponent <Animator> ();
         enemyAudio = GetComponent <AudioSource> ();
         hitParticles = GetComponentInChildren <ParticleSystem> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
-
-        // Setting the current health when the enemy first spawns.
         currentHealth = startingHealth;
     }
 
     void Update ()
     {
-        // If the enemy should be sinking...
         if(isSinking)
         {
-            // ... move the enemy down by the sinkSpeed per second.
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
         }
     }
 
 
-    public void TakeDamage (int amount, Vector3 hitPoint)
+    public void TakeDamage (int amount)
     {
         // If the enemy is dead...
         if(isDead)
@@ -52,12 +50,8 @@ public class EnemyHealth : MonoBehaviour
 
         // Reduce the current health by the amount of damage sustained.
         currentHealth -= amount;
-            
-        // Set the position of the particle system to where the hit was sustained.
-        hitParticles.transform.position = hitPoint;
 
-        // And play the particles.
-        hitParticles.Play();
+    
 
         // If the current health is less than or equal to zero...
         if(currentHealth <= 0)
