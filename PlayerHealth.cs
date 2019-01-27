@@ -28,13 +28,11 @@ public class PlayerHealth : MonoBehaviour
     void Death ()
     {
         // The enemy is dead.
-        isDead = true;
-
-        // Turn the collider into a trigger so shots can pass through it.
-        capsuleCollider.isTrigger = true;
-
-        // Tell the animator that the enemy is dead.
-        anim.SetTrigger ("Dead");
+        if(_currentHealth == 0)
+        {
+            isDead = true;
+            anim.SetTrigger("Dead");
+        }
     }
 
 
